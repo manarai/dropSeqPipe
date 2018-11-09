@@ -208,3 +208,17 @@ rule violine_plots:
 		R_objects='summary/R_Seurat_objects.rdata'
 	script:
 		'../scripts/plot_violine.R'
+
+rule summary_stats:
+	input:
+		R_objects='summary/R_Seurat_objects.rdata',
+		hist_cell=expand('logs/{sample}_hist_out_cell.txt', sample=samples.index),
+	conda: '../envs/plots_ext.yaml'
+	output:
+		stats_pre='summary/barcode_stats_pre_filter.csv',
+		stats_post='summary/barcode_stats_post_filter.csv',
+	params:
+		sample_names=lambda wildcards: samples.index,
+		batches=lambda wildcards: samples.loc[samples.index, 'batch']
+	script:
+		'../scripts/create_summary_stats.R'
