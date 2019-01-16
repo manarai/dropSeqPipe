@@ -113,8 +113,8 @@ gg <- ggplot(meta.data, aes(x = nUMI, y=nCounts, color=orig.ident)) +
      y = "Number of Counts per Bead [k]")
 
   # dev.new()
-# htmlwidgets::saveWidget(ggplotly(gg), file.path(getwd(),snakemake@output$html_umivscounts))
- ggsave(gg, file = file.path(getwd(), snakemake@output$pdf_umivscounts), width=12,height=7)
+# htmlwidgets::saveWidget(ggplotly(gg), file.path(snakemake@output$html_umivscounts))
+ ggsave(gg, file = file.path(snakemake@output$pdf_umivscounts), width=12,height=7)
 
 # how about unaligned reads/UMI?
 # Note(Seb): raw.data is actually filtered data i.e. nr of genes likely to be smaller than input data!
@@ -158,8 +158,8 @@ gg <- ggplot(meta.data, aes(x = nUMI, y = nGene, color=orig.ident)) +
 
   # dev.new()
 # htmlwidgets::saveWidget(ggplotly(gg),
-                        # file.path(getwd(), snakemake@output$html_umi_vs_gene))
-ggsave(gg, file = file.path(getwd(), snakemake@output$pdf_umi_vs_gene),
+                        # file.path(snakemake@output$html_umi_vs_gene))
+ggsave(gg, file = file.path(snakemake@output$pdf_umi_vs_gene),
        width = 12, height = 7)
 
 
@@ -174,9 +174,9 @@ gg <- ggplot(meta.data, aes(x = nCounts, y = nGene, color=orig.ident)) +
 
   # dev.new()
 # htmlwidgets::saveWidget(ggplotly(gg),
-  #                       file.path(getwd(), snakemake@output$html_count_vs_gene))
+  #                       file.path(snakemake@output$html_count_vs_gene))
 
-ggsave(gg, file = file.path(getwd(), snakemake@output$pdf_count_vs_gene),
+ggsave(gg, file = file.path(snakemake@output$pdf_count_vs_gene),
         width = 12, height = 7)
 
 
@@ -187,4 +187,4 @@ ggsave(gg, file = file.path(getwd(), snakemake@output$pdf_count_vs_gene),
 
 # exporting R Seurat objects into summary/R_Seurat_objects.rdata
 save(snakemake, seuratobj,
-     file=file.path(getwd(), snakemake@output$R_objects))
+     file=file.path(snakemake@output$R_objects))
